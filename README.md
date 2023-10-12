@@ -12,7 +12,8 @@
 - The installer menu shortcut creation was incorrect, we will fix it in the next release.
 
 [Download]
-https://cicbv2release.blob.core.windows.net/cicbv2-release/CICBv2-Installer.exe
+- https://cicbv2release.blob.core.windows.net/cicbv2-release/CICBv2-Installer.exe
+- SHA256: E74E0F3192B7DF854C73C55AE6684E4548370EEBDEB1348476FD990F2FC203AA
 
 ---
 
