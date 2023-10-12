@@ -58,12 +58,10 @@
 ---
 
 2023-02-15 - v2.1.1.7
-Last Updated 7 months ago
 
 [Fixed]
-
-CA signed the client with a valid publisher's certificate.
-CA signed the server with a valid publisher's certificate.
+1. CA signed the client with a valid publisher's certificate.
+2. CA signed the server with a valid publisher's certificate.
 
 ---
 
