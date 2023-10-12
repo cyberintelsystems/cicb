@@ -12,10 +12,10 @@
 - The installer menu shortcut creation was incorrect, we will fix it in the next release.
 
 [Download]
-- OS: Windows 7+ | Windows Server 2018+
+- OS: Windows 7+ or Windows Server 2018+
 - Algorithm: SHA256
 - Hash: E74E0F3192B7DF854C73C55AE6684E4548370EEBDEB1348476FD990F2FC203AA
-- File: [CICBv2-Installer](https://portal.cyberintelsystems.com/downloads/?f=CICBv2-Installer.exe)
+- File: [CICBv2-Installer.exe](https://portal.cyberintelsystems.com/downloads/?f=CICBv2-Installer.exe)
 
 ---
 
