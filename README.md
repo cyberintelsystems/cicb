@@ -4,6 +4,7 @@
 
 [Fixed]
 - Server minor license issue.
+  
 [Download]
 - OS: Windows 7+ or Windows Server 2018+
 - Algorithm: SHA256
