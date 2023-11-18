@@ -1,5 +1,11 @@
 # CICBv2 Release Notes
 
+2023-11-17 - v2.1.2.3
+[Fixed]
+- Server minor license issue.
+
+---
+
 2023-09-25 - v2.1.2.2
 
 [Improved]
