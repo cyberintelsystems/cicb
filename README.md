@@ -9,7 +9,7 @@
 - OS: Windows 7+ or Windows Server 2018+
 - Algorithm: SHA256
 - Hash: 91A20EA092A16F7711EF8B252A00BD02538E5EA15A4D4D39CF8236C2760E9119
-- File: CICBv2-Installer.exe
+- File: [CICBv2-Installer.exe](https://portal.cyberintelsystems.com/downloads/?f=CICBv2-Installer.exe)
 
 ---
 
