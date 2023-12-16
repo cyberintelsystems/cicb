@@ -1,5 +1,7 @@
 # CICBv2 Release Notes
 
+---
+
 2023-12-16 - v2.2.0.1
 
 [Fixed]
