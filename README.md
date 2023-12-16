@@ -1,5 +1,30 @@
 # CICBv2 Release Notes
 
+2023-12-16 - v2.2.0.1
+
+[Fixed]
+- Server single license activation issue.
+  
+[Download]
+- OS: Windows 7+ or Windows Server 2018+
+- Algorithm: SHA256
+- Hash: 91A20EA092A16F7711EF8B252A00BD02538E5EA15A4D4D39CF8236C2760E9119
+
+---
+
+2023-12-16 - v2.2.0.0
+
+[Added]
+- CICB Server supported x509 certificate.
+- CICB Server supported the new portal.
+  
+[Download]
+- OS: Windows 7+ or Windows Server 2018+
+- Algorithm: SHA256
+- Hash: 91A20EA092A16F7711EF8B252A00BD02538E5EA15A4D4D39CF8236C2760E9119
+  
+---
+
 2023-11-17 - v2.1.2.3
 
 [Fixed]
