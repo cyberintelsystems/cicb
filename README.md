@@ -12,7 +12,7 @@
 
 ---
 
-2023-12-16 - v2.2.0.0
+2023-12-07 - v2.2.0.0
 
 [Added]
 - CICB Server supported x509 certificate.
