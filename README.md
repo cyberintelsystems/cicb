@@ -1,4 +1,4 @@
-# CICBv2 Release Notes
+## CICBv2 Release Notes
 
 ---
 
