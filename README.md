@@ -2,7 +2,7 @@
 
 ---
 
-2023-12-16 - v2.2.0.1
+2023-12-16 - v2.2.0.1 (Unrelese/Internal Testing)
 
 [Fixed]
 - Server single license activation issue.
@@ -14,7 +14,7 @@
 
 ---
 
-2023-12-07 - v2.2.0.0
+2023-12-07 - v2.2.0.0 (Unrelese/Internal Testing)
 
 [Added]
 - CICB Server supported x509 certificate.
