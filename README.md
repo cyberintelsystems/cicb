@@ -1,5 +1,18 @@
 # CICBv2 Release Notes
 
+2023-12-19 - v2.2.0.1 (Released)
+
+[Released]
+- CICB Linux.
+
+[Fixed]
+- Server single license activation issue.
+  
+[Download]
+- OS: Debian 8 LTS+ or Ubuntu 18.06 LTS+
+- Algorithm: SHA256
+- Hash: 8AA7D7673B15C8E5D98D6E9C3A05E2F7B2269A1FD61F58861F7EB1185BCFF5D4
+  
 ---
 
 2023-12-16 - v2.2.0.1 (Unreleased/Internal Testing)
@@ -48,7 +61,7 @@
 - Executable installer.
   
 [Known Issue(s)]
-- The installer menu shortcut creation was incorrect, we will fix it in the next release.
+- The installer menu shortcut creation was incorrect. We will fix it in the next release.
 
 [Download]
 - OS: Windows 7+ or Windows Server 2018+
@@ -60,14 +73,14 @@
 2023-09-05 - v2.1.2.1
 
 [Fixed]
-- Windows 11 when the scale is not 100% dpi, Banner displays incorrectly.
+- Banner displays incorrectly in Windows 11 when the scale is not 100% dpi.
 
 ---
 
 2023-04-17 - v2.1.2.0
 
 [Fixed]
-- Windows Server 2022 no license issue.
+- Windows Server 2022, no license issue.
 
 ---
 
@@ -121,7 +134,7 @@
 2022-12-08 - v2.1.1.4
 
 [Fixed]
-1. Server updates compare version issue.
+1. Server updates compare version issues.
 2. Multi-%scale issue.
    
 [Added]
@@ -132,7 +145,7 @@
 2022-11-25 - v2.1.1.3
 
 [Added]
-1. Enabled Update button for server.
+1. Enabled the Update button for the server.
 2. Added PowerShell batch updater.ps1 sample file.
    
 [Updated]
@@ -156,7 +169,7 @@
 [Fixed]
 1. Missing left text for demo mode.
 2. The new group is missing default screen settings.
-3. The missing default color for the banner and text.
+3. The default color for the banner and text is missing.
 4. The banner displays a 0/1 placeholder issue when the display option turns off.
 
 ---
@@ -175,7 +188,7 @@
 - Sectigo Digital signed.
   
 [Fixed]
-1. The version display incorrectly after startup.
+1. The version displays incorrectly after startup.
 2. License and settings do not display correctly after startup.
 
 ---
