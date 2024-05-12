@@ -8,7 +8,7 @@ TBD - v2.2.1.0 (Coming Soon)
 
 ---
 
-2024-05-31 - v2.2.0.0
+2024-06-30 - v2.2.0.0
 
 [Updated]
 - CICB Windows.
