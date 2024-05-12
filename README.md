@@ -1,42 +1,30 @@
 # CICBv2 Release Notes
 
-2023-12-19 - v2.2.0.1 (Released)
 
-[Released]
+TBD - v2.2.1.0 (Coming Soon)
+
+[Updated]
 - CICB Linux.
 
-[Fixed]
-- Server single license activation issue.
-  
-[Download]
-- OS: Debian 8 LTS+ or Ubuntu 18.06 LTS+
-- Algorithm: SHA256
-- Hash: 8AA7D7673B15C8E5D98D6E9C3A05E2F7B2269A1FD61F58861F7EB1185BCFF5D4
-  
 ---
 
-2023-12-16 - v2.2.0.1 (Unreleased/Internal Testing)
+2024-05-31 - v2.2.0.0 (Coming Soon)
 
-[Fixed]
-- Server single license activation issue.
-  
-[Download]
-- OS: Windows 7+ or Windows Server 2018+
-- Algorithm: SHA256
-- Hash: 87DBA3E9BEFAFDBDEA67A83C4DE5CDFF39BB0089EC3BD649513BD6E482F9F638
-
----
-
-2023-12-07 - v2.2.0.0 (Unreleased/Internal Testing)
+[Updated]
+- CICB Windows.
+- CICB Portal.
 
 [Added]
-- CICB Server supported x509 certificate.
-- CICB Server supported the new portal.
+- Single license activation support.
+
+[Fixed]
+- Message term inconsistency.
+- Public
   
 [Download]
-- OS: Windows 7+ or Windows Server 2018+
+- OS: Windows 7+
 - Algorithm: SHA256
-- Hash: 597A6CFE346AB3EC8C285D6E112D2B04FFFF723F6E03B27E48D11D2012908239
+- Hash: TBD
   
 ---
 
