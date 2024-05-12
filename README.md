@@ -13,6 +13,7 @@ TBD - v2.2.1.0 (Coming Soon)
 [Updated]
 - CICB Windows.
 - CICB Portal.
+- Public key.
 
 [Added]
 - Single license activation support.
@@ -20,7 +21,6 @@ TBD - v2.2.1.0 (Coming Soon)
 
 [Fixed]
 - Message term inconsistency.
-- Public
   
 [Download]
 - OS: Windows 7+
