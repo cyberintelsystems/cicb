@@ -16,6 +16,7 @@ TBD - v2.2.1.0 (Coming Soon)
 
 [Added]
 - Single license activation support.
+- Added certificates system.
 
 [Fixed]
 - Message term inconsistency.
