@@ -1,10 +1,24 @@
 # CICBv2 Release Notes
 
 
-TBD - v2.2.1.0 (Coming Soon)
+2024-10-03 - v2.2.1.1 (internally released)
 
-[Updated]
-- CICB Linux.
+[Fixed]
+- CICB-Client CCM CLI argument issue.
+
+---
+
+2024-06-10 - v2.2.1.0 (internally released)
+
+[Fixed]
+- CICB-Server license activation bug.
+
+---
+
+2024-06-06 - v2.2.0.1 (internally released)
+
+[Fixed]
+- CICB-Server certificates bug.
 
 ---
 
