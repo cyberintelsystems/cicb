@@ -39,8 +39,10 @@
 [Download]
 - OS: Windows 7+
 - Algorithm: SHA256
-- Hash: TBD
-  
+
+[!!!IMPORTANT!!!]
+Starting from version CICB-v2.2.0.0, a new Control Panel (cp.cyberintelsystems.com) is used for license management and issuance. The old CICB-v2.1.2.3 and earlier versions still use the old Portal (portal.cyberintelsystems.com). Please note that the changes between the two versions are significant, making them incompatible. Please consider upgrading carefully.
+
 ---
 
 2023-11-17 - v2.1.2.3
