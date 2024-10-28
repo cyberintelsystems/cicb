@@ -37,7 +37,8 @@
 - Message term inconsistency.
   
 [Download]
-- OS: Windows 7+
+- OS: Windows 10+
+- OS: Linux Ubuntu 16.8+ / Debian 8+
 - Algorithm: SHA256
 
 ### !!! IMPORTANT !!!
