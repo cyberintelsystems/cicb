@@ -1,7 +1,7 @@
 # CICBv2 Release Notes
 
 
-2024-10-03 - v2.2.1.1 (internally released)
+2024-11-08 - v2.2.1.1 (internally released)
 
 [Fixed]
 - CICB-Client CCM CLI argument issue.
