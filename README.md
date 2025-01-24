@@ -1,5 +1,11 @@
 # CICBv2 Release Notes
 
+2025-01-24 - v1.01
+
+[Released]
+- CICB-ServiceInstaller.
+
+---
 
 2024-11-08 - v2.2.1.1 (internally released)
 
