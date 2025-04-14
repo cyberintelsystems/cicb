@@ -1,5 +1,13 @@
 # CICBv2 Release Notes
 
+2025-04-13 - v2.2.1.2 (internally released)
+
+[Fixed]
+- CICB-Client CCM group name save issue.
+- CICB-Server/Client version mismatch issue.
+
+---
+
 2025-01-24 - v1.01
 
 [Released]
@@ -11,7 +19,6 @@
 
 [Fixed]
 - CICB-Client CCM CLI argument issue.
-- CICB-Client CCM group name save issue.
 
 ---
 
