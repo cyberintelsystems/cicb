@@ -11,6 +11,7 @@
 
 [Fixed]
 - CICB-Client CCM CLI argument issue.
+- CICB-Client CCM Group name save issue.
 
 ---
 
