@@ -1,17 +1,21 @@
 # CICBv2 Release Notes
 
-2025-04-13 - v2.2.1.2 (internally released)
+---
+
+2025-04-22 - v2.2.1.2 (internally released)
 
 [Fixed]
-- CICB-Client CCM group name save issue.
-- CICB-Server/Client version mismatch issue.
+- CICB-Client/CCM group name save bug.
+- CICB-Server/Client version mismatch bug.
+- CICB-Banner cannot adapt to changes in Windows screen resolution due to a bug.
+- CICB-Banner cannot adapt to the Windows scaling changes bug.
 
 ---
 
-2025-01-24 - v1.01
+2025-01-24
 
 [Released]
-- CICB-ServiceInstaller.
+- CICB-ServiceInstaller - v1.01.
 
 ---
 
