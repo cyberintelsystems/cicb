@@ -5,6 +5,7 @@
 2025-04-22 - v2.2.1.2 (internally released)
 
 [Fixed]
+- CICB-Banner cannot adapt to the Windows tablet mode bug.
 - CICB-Client/CCM group name save bug.
 - CICB-Server/Client version mismatch bug.
 - CICB-Banner cannot adapt to changes in Windows screen resolution due to a bug.
