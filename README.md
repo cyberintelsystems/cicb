@@ -2,6 +2,13 @@
 
 ---
 
+2025-07-17 - v2.3.0.0 (internally released)
+
+[Improved]
+- CICB-Server now can support package features.
+
+---
+
 2025-04-22 - v2.2.1.2 (internally released)
 
 [Fixed]
