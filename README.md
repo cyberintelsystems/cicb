@@ -2,7 +2,14 @@
 
 ---
 
-2025-07-17 - v2.3.0.0 (internally released)
+2025-08-07 - v2.2.2.0 (internally released)
+
+[Fixed]
+- CICB-Server certificate parsing issue.
+
+---
+
+2025-07-17 - v2.2.2.0 (internally released)
 
 [Improved]
 - CICB-Server now can support package features.
