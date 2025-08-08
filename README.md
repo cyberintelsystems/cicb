@@ -2,7 +2,7 @@
 
 ---
 
-2025-08-07 - v2.2.2.0 (internally released)
+2025-08-07 - v2.2.2.1 (internally released)
 
 [Fixed]
 - CICB-Server certificate parsing issue.
