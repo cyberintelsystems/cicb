@@ -182,15 +182,10 @@ Starting from version CICB-v2.2.0.0, a new Control Panel (cp.cyberintelsystems.c
 
 ---
 
-2023-02-25 - v2.1.1.8
+2023-03-17 - v2.1.1.9
 
-[Added]
-1. CICBv2 Installer
-2. Server About System Tray Menu
-  
-[Fixed]
-1. CCM cannot save the client.connection and group.settings files within the same folder.
-2. CCM displays the wrong default group information.
+[Released]
+- Internal release.
 
 ---
 
@@ -199,7 +194,7 @@ Starting from version CICB-v2.2.0.0, a new Control Panel (cp.cyberintelsystems.c
 [Added]
 1. CICBv2 Installer
 2. Server About System Tray Menu
-   
+  
 [Fixed]
 1. CCM cannot save the client.connection and group.settings files within the same folder.
 2. CCM displays the wrong default group information.
@@ -298,6 +293,13 @@ Starting from version CICB-v2.2.0.0, a new Control Panel (cp.cyberintelsystems.c
    
 ---
 
+2022-08-31 - v2.0.8.0
+
+[Released]
+- Internal release.
+
+---
+
 2022-08-25 - v2.0.7.0
 
 [Fixed]
@@ -313,11 +315,10 @@ Starting from version CICB-v2.2.0.0, a new Control Panel (cp.cyberintelsystems.c
 
 ---
 
-2022-08-03 - v2.0.4.0
+2022-08-12 - v2.0.5.0
 
-[Fixed]
-- LDAP toggle button issue.
-- LDAP is not able to sync with the LDAP server.
+[Released]
+- Internal release.
 
 ---
 
@@ -329,11 +330,10 @@ Starting from version CICB-v2.2.0.0, a new Control Panel (cp.cyberintelsystems.c
 
 ---
 
-2022-07-20 - v2.0.2.0
+2022-07-28 - v2.0.3.0
 
-[Fixed]
-1. CCM API key issue.
-2. Client and Agent communication issue.
+[Released]
+- Internal release.
 
 ---
 
