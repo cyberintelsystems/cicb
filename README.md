@@ -2,6 +2,119 @@
 
 ---
 
+## 2026-01-11 - v2.3.2.53
+
+[Fixed]
+- **Winget Automation**: Critical fix for submission script to base new branches off `upstream/master` instead of `origin/master`. This ensures clean commit history for Pull Requests to the official Microsoft Winget repository.
+
+---
+
+## 2026-01-11 - v2.3.2.52
+
+[Added]
+- **Winget Automation**: Official release submitted to `winget-pkgs`.
+- **Winget Automation**: Introduced `submit-to-winget.ps1` to fully automate the submission process, including:
+  - Automatic detection of latest build.
+  - SHA256 hash calculation.
+  - Manifest generation/update (Version, URL, Hash).
+  - Git automation for branching and pushing to fork.
+
+[Changed]
+- **Deployment**: Consolidated all Winget helper scripts (`exe-helper`, `guid-helper`, `prepare-winget`) into the single master submission tool.
+
+---
+
+## 2026-01-11 - v2.3.2.51
+
+[Fixed]
+- **Deploy Manager**: Fixed parameter passing for timeout arguments in the backend PowerShell script.
+- **Winget Manifests**: Corrected schema validation issues in manifest templates.
+
+[Changed]
+- **Config**: Removed unused legacy encryption keys (`LEGACY_AES_KEY`, `LEGACY_AES_IV`) from environment configuration to improve security posture.
+
+---
+
+## 2026-01-11 - v2.3.2.50
+
+[Internal]
+- **DevOps**: Refactoring of deployment scripts to support modular Winget submission.
+- **DevOps**: Cleaned up obsolete build artifacts and temporary helper scripts.
+
+---
+
+## 2026-01-11 - v2.3.2.49
+
+[Added]
+- **Deploy Manager**: Added configurable timeouts for signing operations.
+  - **Installer Sign Timeout**: Default 120 seconds.
+  - **MSI Sign Timeout**: Default 30 seconds.
+- **UI**: Added Settings dialog to configure these timeouts persistently.
+
+[Improved]
+- **Signing**: Enhanced reliability of signing process on slower network connections or when timestamp servers are experiencing latency.
+
+---
+
+## 2026-01-11 - v2.3.2.48
+
+[Added]
+- **MSI Installer**: Desktop shortcuts for Client, Server, and CCM now created on installation.
+- **Deploy Manager**: Abort functionality - Deploy button changes to red "Abort" button during deployment process.
+
+[Changed]
+- **MSI Installer**: Installation structure now matches EXE installer - all files install directly to `C:\Program Files (x86)\CICBv2\` without subfolders.
+- **MSI Build Process**: Uses separate flat staging directory to ensure clean file structure without inno-setup folder.
+- **Deploy Manager**: Deploy button now changes text and color (red #F44336) during active deployment, allowing user to abort.
+
+[Fixed]
+- **MSI Installer**: Icon path corrected to reference flat directory structure.
+
+---
+
+## 2026-01-11 - v2.3.2.47
+
+[Added]
+- **Deploy Manager**: Auto-increment version system - version now automatically increments on each build.
+- **Deploy Manager**: Single instance enforcement using QSharedMemory to prevent multiple instances.
+- **Deploy Manager**: Log timestamps - each log entry now shows [HH:mm:ss] timestamp with improved line spacing.
+- **MSI Installer**: Fixed packaging to include all dependency files (Qt DLLs, plugins, configs) using WiX heat.exe harvesting.
+- **MSI Installer**: Optional auto-startup features for both Client and Server (enabled by default, can be deselected).
+- **Inno Setup Installer**: Optional auto-startup tasks for Client and Server with checkedonce flag.
+- **Documentation**: Comprehensive MSI Installation Guide (`MSI_INSTALLATION_GUIDE.md`) for IT administrators covering silent installation, Group Policy deployment, and troubleshooting.
+
+[Changed]
+- **Deploy Manager UI**: Simplified interface by removing 5 checkboxes (Full, WinGet, WingetSign, MsiSign, InstallerSign).
+- **Deploy Manager UI**: Auto-combine "Create Installer" with signing and "MSI" with signing.
+- **Deploy Manager UI**: Reorganized layout - Production/Protection/Sign Binaries in one row, Create Installer/MSI in second row.
+- **Deploy Manager UI**: All buttons styled with green color scheme (#4CAF50) with hover/pressed effects.
+- **Deploy Manager**: MSI checkbox now checked by default.
+- **WinGet**: Transitioned from EXE to MSI-only approach for WinGet publication.
+
+[Fixed]
+- **WiX Installer**: Resolved CNDL0062 error (Component Directory conflict) by restructuring ComponentGroups.
+- **WiX Installer**: Resolved LGHT0091 error (duplicate ComponentGroup definition) by removing manual ProductComponents.
+- **MSI Packaging**: Fixed missing dependencies issue - MSI now includes all required files via automated harvesting.
+
+[Technical]
+- **Build System**: Implemented `increment_version.cmake` for automatic version management.
+- **Auto-Startup**: Registry keys added to HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run for optional auto-launch.
+- **WiX Integration**: Automated file harvesting using heat.exe with -cg ProductComponents -dr INSTALLFOLDER -gg -sfrag -srd -sreg flags.
+
+---
+
+2026-01-05 - v2.3.2.6
+
+[Fixed]
+- CCM (Client Configuration Manager) startup performance optimized.
+- Server UI: Group Name input field was disabled in the "Add Group" section.
+
+[Improved]
+- Deployment Manager: Added retry logic for file signing to prevent file lock errors.
+- Documentation: Corrected default port (56789) in Server as Service guide.
+
+---
+
 2026-01-05 - v2.3.2.5
 
 [Added]
