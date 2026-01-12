@@ -19,6 +19,27 @@
 
 ---
 
+## 2026-01-12 - v2.3.2.63
+
+[Internal]
+- **Build**: Internal build / Version increment skipped in git history.
+
+---
+
+## 2026-01-12 - v2.3.2.62
+
+[Internal]
+- **Build**: Internal build / Version increment skipped in git history.
+
+---
+
+## 2026-01-12 - v2.3.2.61
+
+[Internal]
+- **Build**: Internal build / Version increment skipped in git history.
+
+---
+
 ## 2026-01-12 - v2.3.2.60
 
 [Added]
