@@ -2,6 +2,68 @@
 
 ---
 
+## 2026-01-12 - v2.3.2.65
+
+[Added]
+- **Winget Automation**: Added manifests and submission support for v2.3.2.65.
+
+[Changed]
+- **Docs**: Added standard Copilot instructions for development consistency.
+
+---
+
+## 2026-01-12 - v2.3.2.64
+
+[Changed]
+- **Deploy Manager**: Refined log output colors for improved readability.
+
+---
+
+## 2026-01-12 - v2.3.2.60
+
+[Added]
+- **Server**: Added support for synchronization of 'Alarm Type' and 'Setting Name' fields from the portal.
+
+---
+
+## 2026-01-12 - v2.3.2.59
+
+[Added]
+- **Server**: Enhanced Portal Alarm synchronization to support parsing and persisting all alarm fields (Message, Color, Sound, Loop, Blink).
+- **Server**: Implemented database schema updates to store synchronized alarms locally.
+- **Server**: Added logic to seamlessly replace existing alarm settings and handle unnamed alarms sequentially during sync.
+
+---
+
+## 2026-01-12 - v2.3.2.58
+
+[Added]
+- **Server**: Initial implementation of Portal Alarm synchronization to local database.
+
+[Fixed]
+- **Build**: Resolved `NOMINMAX` macro redefinition warnings in Windows builds.
+
+---
+
+## 2026-01-11 - v2.3.2.57
+
+[Changed]
+- **Server**: Restricted activation of Portal Alarms to occur only when the Server is manually toggled into **Alarm Mode**.
+
+---
+
+## 2026-01-11 - v2.3.2.56
+
+[Added]
+- **Server**: Implemented support for parsing individual client alarms from the web portal API.
+- **Server**: Added logic to propagate portal-defined alarms (message, color, sound, loop) to specific clients. **Note**: Portal alarms only activate when the Server is manually toggled into **Alarm Mode**.
+- **Deploy Manager**: Enhanced log output with color-coded status messages (Green for success, Red for failure) for better visibility.
+
+[Fixed]
+- **Client & Server**: Resolved deprecated Qt API warnings (`QWebSocket::error` -> `errorOccurred`, `qChecksum` overloads) to improve codebase stability and compatibility with newer Qt 6.x versions.
+
+---
+
 ## 2026-01-11 - v2.3.2.53
 
 [Fixed]
