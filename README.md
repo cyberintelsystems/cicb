@@ -2,6 +2,376 @@
 
 ---
 
+## 2026-01-28 - v2.7.7
+
+[Fixed]
+- **CCM**: Fixed critical issue where banner wouldn't update after CCM saves new group name until manual Client restart.
+  - CCM now correctly finds Client window using actual window title 'Cyber Intel Classification Banner - Client'
+  - Implemented PID-based window enumeration with fallback matching for both title patterns
+  - Added comprehensive debug logging for window discovery process
+  - Banner now updates immediately when settings are saved in CCM without requiring manual restart
+
+[Technical Details]
+- Enhanced IPC communication reliability between CCM and Client using `WM_USER+401` message
+- Improved window enumeration logic to handle hidden Qt windows
+- Added `EnumWindowsProcCCM` callback with `GetWindowThreadProcessId` for precise window identification
+- Fixed window title mismatch issue (programmatic vs UI-defined titles)
+
+---
+
+## 2026-01-27 - v2.6.75
+
+[Fixed]
+- **CCM**: Fixed license parsing issue (PID 4) to correctly support distributed licensing.
+
+---
+
+## 2026-01-27 - v2.6.71
+
+[Fixed]
+- **Release**: Enhancements to the release automation script.
+- **Server**: Optimized network interface enumeration to resolve high CPU usage and potential freezing.
+- **Client**: Added fallback to `*default` group if configuration is missing or invalid.
+- **Release**: Improved artifact cleanup to exclude debug and environment files.
+- **Docs**: Ensure installation guides are correctly placed in the `docs` folder.
+
+---
+
+## 2026-01-26 - v2.6.69
+
+[Fixed]
+- **Server**: Optimized network interface enumeration to resolve high CPU usage and potential freezing.
+- **Client**: Added fallback to `*default` group if configuration is missing or invalid.
+- **Release**: Improved artifact cleanup to exclude debug and environment files.
+- **Docs**: Ensure installation guides are correctly placed in the `docs` folder.
+
+---
+
+## 2026-01-26 - v2.6.41
+
+[Fixed]
+- **CCM**: Fixed OpenSSL `applink` error causing crashes on launch by adding a wrapper.
+- **CCM**: Fixed Windows Game Bar popup appearing over CCM by adding a manifest with declared `DesktopApp` type and disabling Game Bar.
+- **Release**: Improved build script to prevent version bumps on failure.
+- **License**: Refactored PID verification to support remote clients and enable checks based on `client.connection` (Distributed Architecture Support).
+
+---
+
+## 2026-01-26 - v2.6.19
+
+[Added]
+- **Flutter CICBv2**: Added complete Flutter-based implementation of Classification Banner system as an alternative to Qt.
+  - Banner: Flutter-based banner display application
+  - CCM: Client Control Manager for group selection
+  - Client: Client application for banner management  
+  - Server: Server application for centralized control
+  - UI Editor: Configuration UI for banner customization
+  - Build and deployment scripts (build_all.ps1, deploy_all.ps1)
+  - Version management and release build infrastructure
+- **Banner**: Added group database ID display in Banner window title for easier troubleshooting.
+- **Debug Tools**: Added Python diagnostic utilities for color verification and database inspection.
+
+[Fixed]
+- **Banner**: Fixed critical color rendering bug where RGB integers were incorrectly parsed as hexadecimal strings.
+  - Issue: Integer value 13216 (0x33A0) was being parsed as hex string "13216" resulting in 0x13216 = 78358
+  - Fix: Modified `parseColorToInt()` to check QVariant type first, only parse strings as hex with "0x" or "#" prefix
+- **Banner**: Fixed missing RGB to BGR color conversion for text rendering (line 746 in wnd_proc.cpp).
+  - Windows COLORREF expects BGR byte order (0x00BBGGRR) but database stores RGB (0x00RRGGBB)
+  - Added proper conversion: `RGB((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF)`
+- **Banner**: Colors now display correctly - dark blue (#0033A0) banner with white (#FFFFFF) text for *confidential.
+- **CCM**: Enforced PID 3+ license requirement for changing classification groups.
+
+[Security]
+- **Encryption**: Completed migration from SimpleCrypt to AES-256-GCM encryption for client-server communication.
+- **Encryption**: Database encryption temporarily disabled in development for debugging (startTransaction/endTransaction).
+
+[Documentation]
+- **Docs**: Moved documentation files to Qt/docs folder for better organization.
+- **Docs**: Added comprehensive debug logging documentation (DEBUG_LOGGING.md).
+- **Docs**: Added banner performance and language documentation.
+- **Docs**: Added feasibility analysis and project roadmap.
+
+[Technical Details]
+- Qt Version: 6.10.1 with MinGW
+- Flutter Implementation: Complete parallel implementation with cross-platform support
+- Database: SQLite with AES-256-GCM encryption (temporarily disabled for development)
+- Color Fix: Fixed `parseColorToInt()` in Qt/server/datamanager.cpp (lines 13-35)
+- Color Fix: Fixed text rendering in Qt/banner/wnd_proc.cpp (line 746)
+- Version Management: Scripts for automated version increments and build management
+
+---
+
+## 2026-01-19 - v2.4.48
+
+[Fixed]
+- **Release Script**: Detailed release report now uses Yellow for "Unknown" status instead of Red, improving readability of non-critical checks.
+- **Server**: Fixed runtime side-by-side configuration error handling; enforced stricter validation and normalization for predefined group names (must be lowercase and start with '*').
+- **Release Manager**: Improved log readability by changing the separator line color to white.
+
+[Technical Details]
+- Server: Added `normalizePredefinedGroupName` to standard `*groupname` format.
+- Release Manager: Updated `appendLog` to support custom styling for separators.
+
+---
+
+## 2026-01-18 - v2.4.42
+
+[Added]
+- **Release Manager**: Added "GitHub Release Retention" setting to automatically manage and clean up older releases on GitHub.
+
+[Fixed]
+- **Release Automation**: Fixed syntax errors in release script and improved GitHub release publishing flow.
+
+---
+
+## 2026-01-18 - v2.4.35
+
+[Fixed]
+- **CCM**: Enforced single instance execution. The application now checks for existing instances on startup and prevents multiple copies from running simultaneously.
+- **CCM**: Fixed configuration path inconsistency. CCM now correctly saves `group.settings` and `client.connection` to the shared `ProgramData` directory (instead of `Documents`), ensuring the Client application can locate and read the configuration.
+- **Banner**: Prevented "Xbox Game Bar" popup on Windows by adding an application manifest and explicitly identifying `banner.exe` as a desktop application.
+- **Release**: Enhanced release script robustness with improved directory cleaning, file locking handling, and better error reporting for the code signing process.
+
+[Technical Details]
+- CCM: Implemented `QSharedMemory` check on startup with key "CCM_Single_Instance_Key_12345".
+- CCM: Switched `mCurrDir` from `QStandardPaths::DocumentsLocation` to Application Directory logic, and updated file save paths to use `CICBUtil::getSharedDataPath()`.
+- Release Script: Added retry loops (up to 5 attempts) for directory cleaning and file copying steps to mitigate "Access Denied" errors caused by OS file locking.
+
+---
+
+## 2026-01-18 - v2.4.30
+
+[Fixed]
+- **Banner**: Fixed decryption issue where CUI settings (Group Name) were displaying garbage characters.
+- **Release**: Improved release report output formatting for better readability.
+
+[Technical Details]
+- **OpenSSL**: Changed server-side encryption padding from default (PKCS7) to `EVP_CIPHER_CTX_set_padding(ctx, 0)` (Zero Padding) to match client-side decryption logic.
+
+---
+
+## 2026-01-18 - v2.4.12
+
+[Added]
+- **Release Manager**: Updated Release Manager to v2.4.12.
+- **Licensing**: Added support for PID 0 ("Free" Plan) predefined groups.
+- **Release**: Added configurable signing delay setting.
+
+---
+
+## 2026-01-17 - v2.3.93
+
+[Added]
+- **Configuration**: Added support for externalized `default_settings.json` to allow customizing "protected default groups" without recompiling.
+
+[Fixed]
+- **Build**: Resolved build errors related to `m_productID`.
+
+---
+
+## 2026-01-17 - v2.3.91
+
+[Security]
+- **Licensing**: Enhanced "Protected Default Group" logic to respect license expiration.
+
+---
+
+## 2026-01-17 - v2.3.90
+
+[Added]
+- **Feature Registry**: Implemented centralized Feature Registry system to manage feature lockdown based on Plan IDs.
+- **Alarms**: Enabled alarms for PID 3 (Enterprise).
+
+[Security]
+- **Configuration**: `settings.json` is now embedded as a Qt resource to prevent tampering.
+
+---
+
+## 2026-01-16 - v2.3.59
+
+[Improved]
+- **Release Manager**: UI improvements.
+- **Documentation**: Fixed service documentation paths.
+
+---
+
+## 2026-01-15 - v2.3.56
+
+[Fixed]
+- **Banner Performance**: Fixed critical CPU performance issues causing excessive CPU usage:
+  - Added `Sleep(1)` to animation busy-wait loop, reducing CPU from 100% to <5% during window sliding animations
+  - Moved `SetWindowPos()` inside alarm check to eliminate 8+ unnecessary window system calls per second on multi-display setups
+  - Optimized `InvalidateRect()` calls to only execute during alarm state, preventing continuous unnecessary repaints
+
+[Changed]
+- **Themida Protection**: Enabled VM support (`OPTION_PROTECTION_IS_VMWARE_SUPPORT=true`) for all executables (Server, Client, Banner, CCM, CCM-Lite) to allow CICB to run on virtual machines, VDI, RDP, Azure Virtual Desktop while maintaining hardware-based identification for licensing.
+
+[Technical Details]
+- Banner animation loop was using tight busy-wait without yielding CPU: `while (GetTickCount() < timeout) { SetWindowPos(); UpdateWindow(); }`
+- Added 1ms sleep between animation frames to prevent CPU saturation while maintaining smooth 60+ FPS animation
+- `TimerProc()` was calling `SetWindowPos(HWND_TOPMOST)` every second for all windows regardless of alarm state
+- VM detection was blocking execution on VMware, Hyper-V, VirtualBox, Citrix - now hardware ID collection still works in VM environments
+
+---
+
+## 2026-01-15 - v2.3.55
+
+[Added]
+- **Documentation**: Created comprehensive feature lockdown documentation (`Qt/docs/feature-lockdown-by-plan.md`) detailing PID-based licensing structure with 5 tiers (Free, Basic, Professional, Enterprise, Government) and complete feature matrix showing capabilities for each plan.
+
+[Changed]
+- **License Plans**: Restructured Free plan (PID 0) from 30-day trial to 1-year renewable license with feature limitations:
+  - Limited to 2 displays per workstation
+  - Disabled banner customization (colors, font, border size, text content)
+  - Disabled LDAP/AD integration and 3rd-party API access
+  - Disabled logging, alarms, and manual controls
+  - Community support only
+- **Feature Matrix**: Consolidated and organized 48 features across 7 categories (Licensing, Banner Display, Management, Integration, Security, Logging, Deployment, Support)
+- **Display Limits**: Defined display support per plan (Free=2, Basic=4, Professional=6, Enterprise/Government=12)
+- **Client Support**: All plans now use certificate-based client limits (max 30,000) instead of fixed tiers
+
+[Improved]
+- **Documentation**: Added detailed feature descriptions including technical specifications, compliance standards (FIPS 201, FISMA, DISA STIGs), and real-world use cases
+- **Documentation**: Synchronized feature matrix with live pricing page (cyberintelsystems.com/pricing)
+
+---
+
+## 2026-01-15 - v2.3.54
+
+[Fixed]
+- **System Info**: Fixed missing CPU and RAM information in logs by replacing deprecated `wmic` commands with PowerShell `Get-CimInstance` commands for Windows 11 compatibility.
+
+[Technical Details]
+- `wmic` commands were timing out on Windows 11 (deprecated in favor of PowerShell)
+- Replaced with `Get-CimInstance -ClassName Win32_Processor` for CPU name
+- Replaced with `Get-CimInstance -ClassName Win32_ComputerSystem` for total physical memory
+- Added 5-second timeout and proper error handling
+- System info now displays correctly: `OS=Windows 11 Version 25H2, CPU=Intel(R) Xeon(R) w7-2475X, RAM=511.47 GB`
+
+---
+
+## 2026-01-15 - v2.3.47
+
+[Fixed]
+- **Server**: Fixed binary data in group names causing banner crash by sanitizing decrypted group names before sending to clients, removing null bytes and control characters that corrupted command-line arguments.
+
+[Technical Details]
+- Server was sending binary data embedded in group names (e.g., `*Default\x00\x00...`) to clients
+- Clients would append this corrupted group name to banner arguments, causing "Insufficient arguments" error
+- Solution: Added `QRegularExpression` sanitization on server-side after group name decryption to remove control characters (`\x00-\x1F`)
+
+---
+
+## 2026-01-15 - v2.3.45
+
+[Fixed]
+- **Client**: Fixed banner process crash on second launch caused by binary data and null bytes in user profile/group names being passed as command-line arguments. Banner now properly validates and receives all 12 expected arguments.
+- **Client**: Resolved "Insufficient arguments. Exiting." error by sanitizing group name data before passing to Banner process, removing control characters (`\x00-\x1F`) that corrupted argument parsing.
+
+[Improved]
+- **Client**: Enhanced argument sanitization at multiple levels - during group name construction and in `runAppbar()` function - ensuring robust command-line parsing for Banner subprocess.
+- **Qt 6 Compatibility**: Migrated from deprecated `QRegExp` to `QRegularExpression` for binary data removal, ensuring compatibility with Qt 6 framework.
+
+[Technical Details]
+- Banner splits arguments using `"--"` delimiter and expects exactly 12 arguments (screen index, dimensions, colors, text strings, monitor name)
+- When user profile data containing null bytes was appended to `linfo` parameter, command-line parsing failed, reducing argument count from 12 to 4
+- Solution: Added `QRegularExpression` sanitization to remove null bytes and control characters from group names before banner launch
+
+---
+
+## 2026-01-14 - v2.3.43
+
+[Fixed]
+- **Banner**: Fixed duplicate text rendering issue where right-aligned text was rendered twice causing overlapping display (e.g., "SERVER DOWNS" appearing duplicated).
+- **Server**: Enhanced license validation with ±1 day tolerance for timezone differences, preventing "Not Yet Valid" errors when certificates activate on dates with timezone offsets.
+
+[Improved]
+- **Deploy Manager**: Now reads version dynamically from `version.ver` file instead of compiled constant, ensuring version display matches current build.
+- **Deploy Manager**: Changed output directory from `build/win/archives` to `build/deploy-manager` for better organization.
+- **Deployment**: SmartCardManager.exe is now excluded from release archives and deployment packages.
+- **Themida Protection**: Optimized server protection for 60-75% faster startup (8-12s → 2-4s estimated) by disabling heavy features while keeping essential security (anti-debug, anti-patching, integrity checks).
+
+[Added]
+- **MSI Installer**: Created comprehensive installation guide (`MSI-INSTALL-GUIDE.md`) documenting silent installation with auto-startup features for Client and Server.
+- **Documentation**: Added `OPTIMIZATION-NOTES.md` documenting Themida configuration changes and security trade-offs.
+- **Winget Automation**: Enhanced submission script to automatically generate clickable GitHub PR URLs with optional `-OpenPR` parameter to open browser automatically.
+
+[Changed]
+- **UI**: Deploy Manager button changed from green → purple → dark purple (#6A1B9A) for improved visual design.
+- **UI**: Fixed Deploy Manager button height inconsistency by removing padding from stylesheet.
+
+---
+
+## 2026-01-14 - v2.3.25
+
+[Fixed]
+- **Server**: Fixed decryption failures (error:1C800064:Provider routines::bad decrypt) caused by EVP_CipherFinal_ex attempting to verify padding that clients don't add. Server now matches client encryption pattern by processing data with EVP_CipherUpdate only, maintaining backward compatibility with legacy client code that never calls EVP_CipherFinal_ex.
+
+[Technical Details]
+- Client/CCM encryption uses legacy OpenSSL pattern: EVP_CipherUpdate() without EVP_CipherFinal_ex()
+- Server decryption incorrectly added EVP_CipherFinal_ex() which expects properly padded blocks
+- 128-byte messages (8 AES-128-CBC blocks) would decrypt 112 bytes (7 blocks) successfully but fail on the 8th block during padding verification
+- Solution: Removed EVP_CipherFinal_ex() from server decryption to match client behavior
+
+---
+
+## 2026-01-14 - v2.3.23
+
+[Fixed]
+- **Server**: Fixed certificate date validation that incorrectly subtracted 1 day from `notBefore`, causing "License Not Yet Valid" errors for certificates starting on future dates.
+- **Deploy Manager**: Updated status bar to show version number in deployment states ("Deploying v2.3.23..." and "Done v2.3.23").
+
+---
+
+## 2026-01-14 - v2.3.22
+
+[Fixed]
+- **Server**: Fixed certificate date parsing to support both UTCTime (2-digit year) and GeneralizedTime (4-digit year) formats using `ASN1_TIME_to_tm()` for proper year 2026+ certificate validation.
+- **Server**: Fixed decryption buffer overflow by using dynamic buffer allocation based on input size instead of hardcoded 1024-byte limit.
+- **Server**: Fixed CSS parser warnings for invalid `rgba()` syntax by adding missing alpha channel values in Qt stylesheets.
+- **Server**: Enhanced OpenSSL error reporting with `ERR_get_error()` and `ERR_error_string_n()` for better decryption failure diagnostics.
+
+[Improved]
+- **Server**: Certificate selection now uses actual expiration date (`notAfter`) instead of filename timestamp, automatically selecting the certificate valid longest when multiple certificates exist for same server ID.
+- **Server**: Added detailed logging during certificate selection showing expiration dates and selected certificate path.
+
+[Changed]
+- **Versioning**: Migrated from 4-part version format (2.3.3.7) to 3-part semantic versioning (2.3.22), simplifying version increments to patch-only updates.
+
+---
+
+## 2026-01-14 - v2.3.2
+
+[Fixed]
+- **Server**: Fixed license validation failing for certificates with uppercase `PUBKEY:` and `CRL:` prefixes by implementing truly case-insensitive matching.
+- **Debug**: Relocated debug control files (`debug.on`, `debug.key`) from application directory to user Documents folder for consistent location with `debug.log`.
+
+[Improved]
+- **Server**: Enhanced certificate validation error logging with detailed diagnostics, hex dumps, and possible root causes for easier troubleshooting.
+- **Server**: Changed validation failure messages from `qDebug` to `qCritical` for better visibility without debug mode.
+- **Deploy Manager**: Added version display (v2.3.2 format) in status bar center for quick reference during deployments.
+
+[Changed]
+- **Versioning**: Standardized version format across all components to use 3-part semantic versioning (major.minor.patch), dropping the fourth build number from user-facing displays.
+
+---
+
+## 2026-01-14 - v2.3.2.98
+
+[Internal]
+- **Build**: Internal build / Version increment skipped in git history.
+
+---
+
+## 2026-01-14 - v2.3.2.97
+
+[Fixed]
+- **Banner**: Adjusted bottom margin for top-docked banner to prevent overlap with maximized applications.
+- **Banner**: Fixed right text alignment issue where characters were truncated.
+- **Build**: Fixed CMake configuration for SmartCard Manager path.
+
+---
+
 ## 2026-01-12 - v2.3.2.65
 
 [Added]
