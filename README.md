@@ -1,5 +1,85 @@
 # CICBv2 Release Notes
 
+This project adheres to [Semantic Versioning](https://semver.org).
+
+## Project Structure
+
+### CICB (Cyber Intel Classification Banner)
+The main classification banner system providing visual security indicators for Windows environments.
+
+## Documentation
+
+- **[MSI Installation Guide](docs/MSI_INSTALLATION_GUIDE.md)** - Enterprise deployment, Group Policy, and troubleshooting
+- **[Silent Installation Guide](docs/SILENT_INSTALL.md)** - Automated/silent MSI installation for IT administrators
+- **[WinGet Submission Guide](docs/WINGET_SUBMISSION.md)** - Windows Package Manager submission process
+- **[Service Installation Guide](docs/SERVICE_INSTALLATION_GUIDE.md)** - Running Server as Windows Service
+- **[Versioning Guide](docs/VERSIONING.md)** - Version management and release process
+
+---
+
+## 2026-02-20 - v2.9.11.75
+
+[Security]
+- **Server / Client (STIG APSC-DV-002400)**: Replaced unencrypted WebSocket transport with TLS-encrypted WSS.
+  - `saserver.cpp`: Changed `QWebSocketServer::NonSecureMode` to `QWebSocketServer::SecureMode`. Added `QSslConfiguration` block that loads `server_tls.crt` and `server_tls.key` from `applicationDirPath()` before `listen()`.
+  - `websocket.cpp`: `openSocket()` now pins `server_tls.crt` via `QSslConfiguration::addCaCertificate()` with `QSslSocket::VerifyPeer` before calling `open()`.
+  - `client/mainwindow.cpp`: All three connection URL construction sites updated from `ws://` to `wss://`.
+  - `release.ps1`: Added OpenSSL self-signed certificate generation step (2048-bit RSA, 3650-day, SAN=IP:127.0.0.1). `server_tls.crt`+`.key` deployed to server staging; `.crt` only to client staging.
+- **Server (STIG APSC-DV-002560)**: Removed `LDAPTLS_REQCERT=never` from `ldapadapter.cpp`, restoring default LDAP peer certificate verification (`demand`).
+- **Server (STIG APSC-DV-001460)**: Added `#ifdef CICB_NETWORK_FILE_PSK_HEX` guard in `networkcrypt.cpp` to eliminate hardcoded `FILE_PSK_HEX` fallback. Deleted dead `crypto.cpp` / `crypto.h` (AES-256-CBC dead code, closes APSC-DV-001360).
+- **Server (STIG APSC-DV-003000)**: Replaced `strcpy`/`strcat` with bounded `strncpy`/`strncat` + explicit null-terminator in `cbhttp.cpp`.
+- **Server (STIG APSC-DV-002010)**: Added whitelist guard (`ALLOWED_OFFLINE_TABLES`) in `datamanager.cpp` before all dynamic SQL `tableName` substitutions.
+- **Server (STIG APSC-DV-001480)**: Added `CICBUtil::maskSecret()` helper; all `qDebug()` key/password log calls across five source files now mask the middle characters.
+- **Server (STIG APSC-DV-001760)**: Full AES-256-GCM at-rest database encryption implemented in `datamanager.cpp` (`encryptDbFile`/`decryptDbFile`) backed by DPAPI-protected master key.
+- **Server (STIG APSC-DV-002570)**: Added return-value checks for all `QSqlQuery::exec()` calls and AES-GCM tag verification in `networkcrypt.cpp`.
+- **Server (STIG APSC-DV-003235)**: Removed all backup, key, and sensitive artefact files from source tree; added exclusion rules to `.gitignore`.
+- **Server (STIG APSC-DV-001750)**: Added explicit `SecureZeroMemory` / `memset_s` calls to zero key material after use in `networkcrypt.cpp` and `securekeymanager.cpp`.
+- **Build (STIG APSC-DV-003300)**: Added `/GS`, `/NXCOMPAT`, `/DYNAMICBASE` (ASLR) compiler hardening flags to `Qt/CMakeLists.txt`.
+- **Server (STIG APSC-DV-000160)**: Implemented account lockout / brute-force throttle for API key and login attempts.
+- **Server (STIG APSC-DV-002590)**: Implemented log rotation at 10 MB with `.old` backup in `logmanager.cpp`.
+
+[Technical Details]
+- STIG report: `STIG/report_v2.9.11.75.md` — 14/14 checks REMEDIATED, 0 OPEN.
+- TLS cert is self-signed (SAN=IP:127.0.0.1,IP:0.0.0.0) generated at release time by `release.ps1` via OpenSSL.
+- Server verifies no client cert (`VerifyNone`); client pins server cert (`VerifyPeer`) — prevents MITM without requiring a CA infrastructure.
+
+---
+
+## 2026-02-04 - v2.8.21
+
+[Security]
+- **Server**: Fixed critical feature lockdown bypass vulnerability where switching from predefined to custom groups would unconditionally enable feature-restricted controls without checking license permissions.
+  - Now properly validates PID-based permissions before enabling controls:
+    - spinBox_bannerSize: Requires PID >= 2 (banner.custom_size)
+    - spinBox_fontSize: Requires PID >= 1 (banner.custom_text)
+    - Color buttons: Require PID >= 1 (banner.custom_colors)
+    - spinBox_borderSize: Requires PID >= 2 (banner.border_customization)
+    - Screen management: Requires PID >= 0 (banner.screen_management)
+
+[Added]
+- **Release Automation**: Created unified `upload_to_github_release_and_winget.ps1` script with flexible parameters:
+  - `-GitHubRelease`: Upload artifacts to GitHub releases
+  - `-WinGet`: Submit package to Windows Package Manager
+  - `-Version`: Specify version to upload
+  - `-ExePath` / `-MsiPath`: Custom artifact paths
+  - `-GitHubReleaseRetention`: Automatic cleanup of old releases
+  - Default behavior: Runs both GitHub and WinGet operations if no flags specified
+
+[Fixed]
+- **WinGet Submission**: Fixed manifest URL validation issues:
+  - Changed LICENSE URL from non-existent GitHub file to company website
+  - Added automatic VERSION_PATTERN replacement for installer and locale manifests
+  - Fixed template placeholders to properly resolve download URLs and release notes
+- **Database Migration**: Improved schema migration using ALTER TABLE ADD COLUMN instead of DROP/CREATE to preserve data
+- **Database Debugging**: Added separate db.log file saved to release archives for troubleshooting
+- **Documentation**: Merged Qt/docs/ into root docs/ folder for better organization
+
+[Technical Details]
+- Security Fix: Enhanced mainwindow.cpp group switching handler (lines 551-591) with FeatureRegistry checks
+- Release Scripts: Consolidated upload functionality, removed separate upload-github-release.ps1
+- WinGet: Updated submit-to-winget.ps1 to replace vVERSION_PATTERN in all manifest templates
+- Database: Schema validation and automatic migration with preserved data integrity
+
 ---
 
 ## 2026-01-28 - v2.7.7
@@ -86,7 +166,7 @@
 - **Encryption**: Database encryption temporarily disabled in development for debugging (startTransaction/endTransaction).
 
 [Documentation]
-- **Docs**: Moved documentation files to Qt/docs folder for better organization.
+- **Docs**: Moved documentation files to docs folder for better organization.
 - **Docs**: Added comprehensive debug logging documentation (DEBUG_LOGGING.md).
 - **Docs**: Added banner performance and language documentation.
 - **Docs**: Added feasibility analysis and project roadmap.
@@ -217,7 +297,7 @@
 ## 2026-01-15 - v2.3.55
 
 [Added]
-- **Documentation**: Created comprehensive feature lockdown documentation (`Qt/docs/feature-lockdown-by-plan.md`) detailing PID-based licensing structure with 5 tiers (Free, Basic, Professional, Enterprise, Government) and complete feature matrix showing capabilities for each plan.
+- **Documentation**: Created comprehensive feature lockdown documentation (`docs/feature-lockdown-by-plan.md`) detailing PID-based licensing structure with 5 tiers (Free, Basic, Professional, Enterprise, Government) and complete feature matrix showing capabilities for each plan.
 
 [Changed]
 - **License Plans**: Restructured Free plan (PID 0) from 30-day trial to 1-year renewable license with feature limitations:
@@ -344,7 +424,7 @@
 
 [Fixed]
 - **Server**: Fixed license validation failing for certificates with uppercase `PUBKEY:` and `CRL:` prefixes by implementing truly case-insensitive matching.
-- **Debug**: Relocated debug control files (`debug.on`, `debug.key`) from application directory to user Documents folder for consistent location with `debug.log`.
+- **Debug**: Relocated debug control files (`debug.txt`, `debug.key`) from application directory to user Documents folder for consistent location with `debug.log`.
 
 [Improved]
 - **Server**: Enhanced certificate validation error logging with detailed diagnostics, hex dumps, and possible root causes for easier troubleshooting.
